@@ -52,6 +52,7 @@ function dogJSON() {
 dogJSON()
 
 dogBar.addEventListener('click', function(e) {
+    dogInfo.innerHTML = ""
     dogs.forEach(element => {
         let isGood = ""
         if (element.isGoodDog === true) {
