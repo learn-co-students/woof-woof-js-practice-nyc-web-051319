@@ -1,6 +1,8 @@
 
 const dogBar = document.querySelector("#dog-bar")
 const dogInfo = document.querySelector("#dog-info")
+const goodDogFilter = document.querySelector("#good-dog-filter")
+let goodDogFilterValue = false
 let goodBoy; 
 
 fetch("http://localhost:3000/pups")
@@ -8,6 +10,7 @@ fetch("http://localhost:3000/pups")
 .then(json => addDogNames(dogBar, json))
 
 function addDogNames(dogBar, json) {
+    dogBar.innerHTML = ''
     json.forEach(dog => {
         dogBar.innerHTML += `<span data-id=${dog.id}>${dog.name}</span>`
     })
@@ -49,3 +52,12 @@ function showDog(dog) {
     })
     dogInfo.appendChild(goodBtn)
 }
+
+goodDogFilter.addEventListener("click", e => {
+    goodDogFilterValue = !goodDogFilterValue
+    goodDogFilter.innerText = goodDogFilterValue ? "Filter good dogs: ON" : "Filter good dogs: OFF"
+    const filters = goodDogFilterValue ? "?isGoodDog=true" : ""
+    fetch(`http://localhost:3000/pups/${filters}`)
+    .then(resp => resp.json())
+    .then(dogs => addDogNames(dogBar, dogs))
+})
