@@ -52,7 +52,6 @@ function dogJSON() {
 dogJSON()
 
 dogBar.addEventListener('click', function(e) {
-    dogInfo.innerHTML = ""
     dogs.forEach(element => {
         let isGood = ""
         if (element.isGoodDog === true) {
@@ -62,6 +61,7 @@ dogBar.addEventListener('click', function(e) {
             isGood = "Bad Dog!"
         }
         if (element.name === e.target.innerText) {
+            dogInfo.innerHTML = ""
             dogInfo.innerHTML += `
                 <img src=${element.image}>
                 <h2>${element.name}</h2>
